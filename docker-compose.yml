@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:80"
+      - "5173:5173"
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    env_file:
+      - .env
+    command: >
+      bash -c "
+        chown -R www-data:www-data storage bootstrap/cache database &&
+        chmod -R 775 storage bootstrap/cache &&
+        chmod 666 database/database.sqlite &&
+        cd /var/www/html &&
+        composer install &&
+        npm install &&
+        supervisord -c /var/www/html/supervisord.conf
+      "

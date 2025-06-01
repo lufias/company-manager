@@ -12,11 +12,13 @@ class CompanyFactory extends Factory
 
     public function definition(): array
     {
+        $name = $this->faker->company;
+        $slug = strtolower(preg_replace('/[^a-z0-9]+/', '', str_replace(' ', '', $name)));
         return [
-            'name' => $this->faker->company,
-            'email' => $this->faker->unique()->companyEmail,
-            'logo' => $this->faker->imageUrl(100, 100, 'business', true, 'logo'),
-            'website' => $this->faker->unique()->url,
+            'name' => $name,
+            'email' => 'info@' . $slug . '.com',
+            'logo' => "https://picsum.photos/seed/" . $this->faker->uuid . "/100/100",
+            'website' => "https://" . $slug . ".com",
             'created_by' => User::factory(), // assumes you have a UserFactory
         ];
     }

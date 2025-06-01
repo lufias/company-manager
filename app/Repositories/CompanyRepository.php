@@ -11,4 +11,9 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         return Company::all();
     }
+
+    public function paginate($perPage = 15, $orderBy = 'updated_at', $orderDirection = 'desc')
+    {
+        return Company::orderBy($orderBy, $orderDirection)->paginate($perPage);
+    }
 }

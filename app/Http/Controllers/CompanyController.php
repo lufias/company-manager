@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
 
 class CompanyController extends Controller
 {
+    public function __construct(private CompanyRepositoryInterface $companyRepository){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('company.index');
+        $companies = $this->companyRepository->paginate(perPage: 10);
+
+        return view('company.index', compact('companies'));
     }
 
     public function create()

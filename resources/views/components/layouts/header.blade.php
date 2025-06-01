@@ -10,7 +10,7 @@
     @guest
         @if (!request()->routeIs('login'))
         <div>
-            <a href="{{ route('login') }}" style="padding: 0.5rem 1rem; background: #2563eb; color: #fff; border-radius: 0.25rem; text-decoration: none;">Login</a>
+            <x-ui.button href="{{ route('login') }}">Login</x-ui.button>
         </div>
         @endif
     @endguest
@@ -19,7 +19,7 @@
     <div>
         <form method="POST" action="{{ route('logout') }}" style="display:inline;">
             @csrf
-            <button type="submit" style="padding: 0.5rem 1rem; background: #2563eb; color: #fff; border-radius: 0.25rem; text-decoration: none; border: none; cursor: pointer;">Logout</button>
+            <x-ui.button type="submit">Logout</x-ui.button>
         </form>
     </div>
     @endauth

@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="font-semibold text-gray-500 mb-4">Companies</h1>
-    <x-ui.button>Add New Company</x-ui.button>
+    <x-ui.button href="{{ route('company.create') }}">Add New Company</x-ui.button>
 
     <div class="my-4 bg-white rounded-xl shadow p-6">
         <div class="overflow-x-auto lg:overflow-x-visible">

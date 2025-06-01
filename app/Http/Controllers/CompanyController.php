@@ -21,7 +21,7 @@ class CompanyController extends Controller
 
     public function create()
     {
-        // Show the form for creating a new company
+        return view('company.create');
     }
 
     public function store(Request $request)

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::where('is_admin', true)->first();
 
         // Create 5 companies, all created by the first admin user
-        Company::factory()->count(5)->create([
+        Company::factory()->count(100)->create([
             'created_by' => $admin->id,
         ]);
     }

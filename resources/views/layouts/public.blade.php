@@ -11,7 +11,7 @@
 </head>
 <body>
     
-    <x-layouts.public.header /> 
+    <x-layouts.header /> 
 
     <main style="min-height: 60vh;">
         @yield('content')

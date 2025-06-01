@@ -24,3 +24,29 @@ Homestead.yaml
 npm-debug.log
 Thumbs.db
 yarn-error.log
+
+# IDE files
+*.sublime-workspace
+*.sublime-project
+*.swp
+.phpstorm.meta.php
+
+# Laravel specific
+/storage/debugbar
+/storage/logs
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/database/*.sqlite
+/database/*.sqlite3
+
+# Supervisor files
+supervisord.log
+supervisord.pid
+
+# Test results
+/test-results/
+
+# Other env files
+.env.*
+!.env.example

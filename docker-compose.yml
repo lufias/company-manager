@@ -13,9 +13,11 @@ services:
       bash -c "
         chown -R www-data:www-data storage bootstrap/cache database &&
         chmod -R 775 storage bootstrap/cache &&
+        touch database/database.sqlite &&
         chmod 666 database/database.sqlite &&
         cd /var/www/html &&
         composer install &&
         npm install &&
+        php artisan migrate --force &&
         supervisord -c /var/www/html/supervisord.conf
       "

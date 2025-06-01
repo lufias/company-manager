@@ -52,6 +52,7 @@ class UserFactory extends Factory
             'email' => 'admin@admin.com',
             'password' => static::$password ??= Hash::make('password'),
             'email_verified_at' => now(),
+            'is_admin' => true,
         ]);
     }
 }

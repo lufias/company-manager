@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Company;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,8 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Create an admin user
         User::factory()->admin()->create();
+
+        // Get the first admin user
+        $admin = User::where('is_admin', true)->first();
+
+        // Create 5 companies, all created by the first admin user
+        Company::factory()->count(5)->create([
+            'created_by' => $admin->id,
+        ]);
     }
 }

@@ -9,7 +9,7 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        // Display a listing of the companies
+        return view('company.index');
     }
 
     public function create()

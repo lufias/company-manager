@@ -37,8 +37,21 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Define an admin user with fixed credentials.
+     */
+    public function admin(): static
+    {
+        return $this->state([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => static::$password ??= Hash::make('password'),
+            'email_verified_at' => now(),
         ]);
     }
 }

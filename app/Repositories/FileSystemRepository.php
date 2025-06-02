@@ -7,13 +7,6 @@ use Illuminate\Support\Facades\Log;
 
 class FileSystemRepository implements FileSystemRepositoryInterface
 {
-    /**
-     * Ensure a directory exists with proper permissions
-     *
-     * @param string $path
-     * @param int $permissions
-     * @return bool
-     */
     public function ensureDirectoryExists(string $path, int $permissions = 0755): bool
     {
         try {
@@ -38,13 +31,6 @@ class FileSystemRepository implements FileSystemRepositoryInterface
         }
     }
 
-    /**
-     * Set permissions for an existing directory
-     *
-     * @param string $path
-     * @param int $permissions
-     * @return bool
-     */
     public function setDirectoryPermissions(string $path, int $permissions = 0755): bool
     {
         try {
@@ -62,13 +48,6 @@ class FileSystemRepository implements FileSystemRepositoryInterface
         }
     }
 
-    /**
-     * Ensure multiple directories exist with proper permissions
-     *
-     * @param array $paths
-     * @param int $permissions
-     * @return bool
-     */
     public function ensureDirectoriesExist(array $paths, int $permissions = 0755): bool
     {
         $success = true;
@@ -82,13 +61,6 @@ class FileSystemRepository implements FileSystemRepositoryInterface
         return $success;
     }
 
-    /**
-     * Create storage directory structure for a specific module
-     *
-     * @param string $module
-     * @param int $permissions
-     * @return bool
-     */
     public function createModuleStorageStructure(string $module, int $permissions = 0755): bool
     {
         // Only create and manage the specific module directory
@@ -97,12 +69,6 @@ class FileSystemRepository implements FileSystemRepositoryInterface
         return $this->ensureDirectoryExists($modulePath, $permissions);
     }
 
-    /**
-     * Ensure Laravel's core storage directories exist with proper permissions
-     *
-     * @param int $permissions
-     * @return bool
-     */
     public function ensureLaravelStorageStructure(int $permissions = 0755): bool
     {
         // This method is kept for interface compliance but does nothing
@@ -110,35 +76,17 @@ class FileSystemRepository implements FileSystemRepositoryInterface
         return true;
     }
 
-    /**
-     * Check if a path is a module directory that we should manage
-     *
-     * @param string $path
-     * @return bool
-     */
     private function isModuleDirectory(string $path): bool
     {
         $publicStoragePath = storage_path('app/public');
         return strpos($path, $publicStoragePath) === 0 && $path !== $publicStoragePath;
     }
 
-    /**
-     * Get the storage path for a specific module
-     *
-     * @param string $module
-     * @return string
-     */
     public function getModuleStoragePath(string $module): string
     {
         return storage_path("app/public/{$module}");
     }
 
-    /**
-     * Check if a directory is writable
-     *
-     * @param string $path
-     * @return bool
-     */
     public function isDirectoryWritable(string $path): bool
     {
         return file_exists($path) && is_writable($path);

@@ -50,4 +50,41 @@ class CompanyRepository implements CompanyRepositoryInterface
 
         return $company;
     }
+
+    public function update(Company $company, array $data)
+    {
+        $company->name = $data['name'];
+        $company->email = $data['email'];
+
+        // Handle logo upload
+        if (isset($data['logo']) && $data['logo']) {
+            // Delete old logo if it exists and is not a URL
+            if ($company->logo && !str_starts_with($company->logo, 'http')) {
+                Storage::disk('public')->delete($company->logo);
+            }
+
+            // Ensure the storage directory structure exists
+            if (!$this->fileSystemRepository->createModuleStorageStructure('companies')) {
+                throw new \Exception('Failed to create storage directory structure for companies');
+            }
+
+            $logoPath = $data['logo']->store('companies', 'public');
+            $company->logo = $logoPath;
+        }
+
+        $company->website = $data['website'];
+        $company->save();
+
+        return $company;
+    }
+
+    public function delete(Company $company)
+    {
+        // Delete logo file if it exists and is not a URL
+        if ($company->logo && !str_starts_with($company->logo, 'http')) {
+            Storage::disk('public')->delete($company->logo);
+        }
+
+        return $company->delete();
+    }
 }

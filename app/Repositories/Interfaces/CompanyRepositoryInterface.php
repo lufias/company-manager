@@ -23,4 +23,21 @@ interface CompanyRepositoryInterface
      * @return \App\Models\Company The created company.
      */
     public function create(array $data);
+
+    /**
+     * Update an existing company.
+     *
+     * @param \App\Models\Company $company The company to update.
+     * @param array $data The data to update the company with.
+     * @return \App\Models\Company The updated company.
+     */
+    public function update(\App\Models\Company $company, array $data);
+
+    /**
+     * Delete a company.
+     *
+     * @param \App\Models\Company $company The company to delete.
+     * @return bool True if the company was deleted successfully.
+     */
+    public function delete(\App\Models\Company $company);
 }

@@ -9,6 +9,10 @@ services:
     working_dir: /var/www/html
     env_file:
       - .env
+    depends_on:
+      - mysql
+    networks:
+      - app-network
     command: >
       bash -c "
         chown -R www-data:www-data storage bootstrap/cache database &&
@@ -18,6 +22,36 @@ services:
         cd /var/www/html &&
         composer install &&
         npm install &&
+        echo 'Waiting for MySQL to be ready...' &&
+        until php -r \"try { new PDO('mysql:host=mysql;port=3306;dbname=${DB_DATABASE}', '${DB_USERNAME}', '${DB_PASSWORD}'); echo 'Connected!'; exit(0); } catch(Exception \$e) { exit(1); }\"; do
+          echo 'MySQL not ready yet, waiting 5 seconds...'
+          sleep 5
+        done &&
+        echo 'MySQL is ready! Running migrations...' &&
         php artisan migrate --force &&
         supervisord -c /var/www/html/supervisord.conf
       "
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - .env
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -11,8 +11,8 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 
 # Install system dependencies for PHP extensions
 RUN apt-get update && \
-    apt-get install -y libsqlite3-dev pkg-config git unzip libzip-dev supervisor && \
-    docker-php-ext-install pdo pdo_sqlite zip && \
+    apt-get install -y libsqlite3-dev pkg-config git unzip libzip-dev supervisor default-mysql-client && \
+    docker-php-ext-install pdo pdo_sqlite pdo_mysql zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js 20.19.2

@@ -27,8 +27,7 @@ services:
           echo 'MySQL not ready yet, waiting 5 seconds...'
           sleep 5
         done &&
-        echo 'MySQL is ready! Running migrations...' &&
-        php artisan migrate --force &&
+        echo 'MySQL is ready!' &&
         supervisord -c /var/www/html/supervisord.conf
       "
 

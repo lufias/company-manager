@@ -15,4 +15,12 @@ interface CompanyRepositoryInterface
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function paginate($perPage = 15, $orderBy = 'updated_at', $orderDirection = 'desc');
+
+    /**
+     * Create a new company.
+     *
+     * @param array $data The data to create the company with.
+     * @return \App\Models\Company The created company.
+     */
+    public function create(array $data);
 }

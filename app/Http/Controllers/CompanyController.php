@@ -26,7 +26,17 @@ class CompanyController extends Controller
 
     public function store(Request $request)
     {
-        // Store a newly created company in storage
+        // validate the request
+        $request->validate([
+            'name' => 'required|unique:companies|max:255',
+            'email' => 'nullable|email|unique:companies',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'website' => 'nullable|url|unique:companies',
+        ]);
+
+        $this->companyRepository->create($request->all());
+
+        return redirect()->route('company.index')->with('success', 'Company created successfully');
     }
 
     public function show(Company $company)

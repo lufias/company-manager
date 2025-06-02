@@ -20,7 +20,7 @@
 
                         <tr class="align-middle border-t border-transparent hover:bg-gray-50 transition">
                             <td class="py-4 font-medium text-gray-700 flex items-center gap-4">
-                                <img src="{{ asset('storage/' . $company->logo) }}" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+                                <img src="{{ str_starts_with($company->logo, 'http') ? $company->logo : asset('storage/' . $company->logo) }}" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
                                 {{ $company->name }}
                             </td>
                             <td class="py-4 text-gray-600">{{ $company->email }}</td>

@@ -4,11 +4,19 @@ namespace App\Repositories;
 
 use App\Models\Company;
 use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\FileSystemRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
+    protected $fileSystemRepository;
+
+    public function __construct(FileSystemRepositoryInterface $fileSystemRepository)
+    {
+        $this->fileSystemRepository = $fileSystemRepository;
+    }
+
     public function all()
     {
         return Company::all();
@@ -27,6 +35,11 @@ class CompanyRepository implements CompanyRepositoryInterface
 
         // Handle logo upload
         if (isset($data['logo']) && $data['logo']) {
+            // Ensure the storage directory structure exists
+            if (!$this->fileSystemRepository->createModuleStorageStructure('companies')) {
+                throw new \Exception('Failed to create storage directory structure for companies');
+            }
+            
             $logoPath = $data['logo']->store('companies', 'public');
             $company->logo = $logoPath;
         }

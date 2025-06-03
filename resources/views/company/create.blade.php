@@ -5,9 +5,14 @@
     <!-- Header with orange background -->
     <div class="px-6 py-4 flex justify-between items-center">
         <h1 class="text-xl font-medium">Create Company</h1>
-        <button type="submit" form="company-form" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md font-medium transition-colors">
-            Save
-        </button>
+        <div class="flex gap-2">
+            <button type="submit" form="company-form" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md font-medium transition-colors">
+                Save
+            </button>
+            <a href="{{ route('company.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-medium transition-colors">
+                Cancel
+            </a>
+        </div>
     </div>
 
     <!-- Form content -->

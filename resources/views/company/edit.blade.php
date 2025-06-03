@@ -45,6 +45,7 @@
                         id="name"
                         value="{{ old('name', $company->name) }}"
                         placeholder="Company Name"
+                        required
                         class="w-full px-3 py-2 bg-gray-100 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent">
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -54,7 +55,7 @@
                 <!-- Email field -->
                 <div>
                     <label for="email" class="block text-gray-600 text-sm font-medium mb-2">Email address</label>
-                    <input type="text"
+                    <input type="email"
                         name="email"
                         id="email"
                         value="{{ old('email', $company->email) }}"
@@ -89,7 +90,7 @@
                 <!-- Website field -->
                 <div>
                     <label for="website" class="block text-gray-600 text-sm font-medium mb-2">Website</label>
-                    <input type="text"
+                    <input type="url"
                         name="website"
                         id="website"
                         value="{{ old('website', $company->website) }}"

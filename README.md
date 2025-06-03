@@ -72,6 +72,13 @@ The setup script will:
 
 Your application will be available at `http://localhost:8000`
 
+<div style="background-color: #ff8c00; padding: 15px; border-radius: 8px; border-left: 5px solid #ff6600; margin: 20px 0;">
+<h3 style="color: white; margin-top: 0;">⚠️ Troubleshooting</h3>
+<p style="color: white; font-weight: bold; margin-bottom: 0;">
+<strong>Database Seeding Issue:</strong> If you encounter <code style="background-color: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px; color: white;">Illuminate\Database\UniqueConstraintViolationException</code> during seeding or when running <code style="background-color: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px; color: white;">setup.sh</code>, simply run the command again. This is just a database unique constraint issue that resolves on retry.
+</p>
+</div>
+
 ### Option 2: Manual Installation
 
 If you prefer to install manually without Docker:

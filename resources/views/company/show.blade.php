@@ -7,9 +7,7 @@
         <h1 class="text-xl font-medium">Company Details</h1>
         <div class="flex gap-2">
             @can('update', $company)
-                <a href="{{ route('company.edit', $company) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium transition-colors">
-                    Edit
-                </a>
+                <x-ui.button href="{{ route('company.edit', $company) }}">Edit</x-ui.button>
             @endcan
             <a href="{{ route('company.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-medium transition-colors">
                 Back to List
@@ -25,15 +23,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Company Logo -->
             <div class="md:col-span-2 flex justify-center mb-6">
-                @if($company->logo)
-                    <img src="{{ str_starts_with($company->logo, 'http') ? $company->logo : asset('storage/' . $company->logo) }}" 
-                         alt="{{ $company->name }} Logo" 
-                         class="w-32 h-32 rounded-lg object-cover shadow-lg">
-                @else
-                    <div class="w-32 h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-                        <span class="text-gray-500">No Logo</span>
-                    </div>
-                @endif
+                <x-company.logo :company="$company" />
             </div>
 
             <!-- Name field -->

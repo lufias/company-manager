@@ -39,8 +39,10 @@ class CompanyController extends Controller
         $request->validate([
             'name' => 'required|unique:companies|max:255',
             'email' => 'nullable|email|unique:companies',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048|dimensions:min_width=100,min_height=100',
             'website' => 'nullable|url|unique:companies',
+        ], [
+            'logo.dimensions' => 'The logo must be at least 100x100 pixels.',
         ]);
 
         $this->companyRepository->create($request->all());
@@ -70,8 +72,10 @@ class CompanyController extends Controller
         $request->validate([
             'name' => 'required|unique:companies,name,' . $company->id . '|max:255',
             'email' => 'nullable|email|unique:companies,email,' . $company->id,
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048|dimensions:min_width=100,min_height=100',
             'website' => 'nullable|url|unique:companies,website,' . $company->id,
+        ], [
+            'logo.dimensions' => 'The logo must be at least 100x100 pixels.',
         ]);
 
         $this->companyRepository->update($company, $request->all());
